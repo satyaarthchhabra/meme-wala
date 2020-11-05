@@ -27,13 +27,15 @@ const SingleMemePage = () => {
         }
     }, [topText,bottomText])
     useEffect(() => {
-        MemeImporter();
-    }, [MemeImporter])
-    const MemeImporter = async () => {
-        let response = await axios.get(`https://api.imgflip.com/get_memes`)
-        setApnaMeme(await response.data.data.memes.find(item => item.id === id))
+        const memes=async() => {
 
-    }
+
+            let response = await axios.get(`https://api.imgflip.com/get_memes`)
+            setApnaMeme(await response.data.data.memes.find(item => item.id === id))
+        }
+        memes();
+    }, [id])
+    
     // console.log(apnaMeme);
     const objectToQueryParam = obj => {
         const params = Object.entries(obj).map(([key, value]) => `${key}=${value}`);
